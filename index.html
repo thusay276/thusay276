@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Weather Forecast</h1>
+    <h2 id="myheading">Which City you want to know?</h2>
+    <h2 id="myCity">I'm searching for unknow city</h2>
+    <h2 id="do1">Nhiet do hien tai la: unknow</h2>
+    <form id="input" action="">
+      <input name="City" type="text" />
+      <button>Submitabc</button>
+    </form>
+    <script>
+      // let getData = async() =>{
+      //     let preData = await fetch ("https://api.openweathermap.org/data/2.5/weather?q=Danang&appid=5122ef98f7a28a061060bd3454e46ed0")
+      //     let data = await preData.json()
+      // }
+      // getData()
+
+      async function getData(userInput) {
+        let data = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&appid=5122ef98f7a28a061060bd3454e46ed0`
+        );
+        let newData = await data.json();
+        console.log(newData);
+        let city = document.getElementById("myCity");
+        city.textContent = "I'm searching for " + newData.name;
+        let nhietdo = document.getElementById("do1");
+        let doC = newData.main.temp - 297;
+        nhietdo.textContent = "Nhiet do hien tai la:" + doC;
+      }
+      //   getData();
+      let myForm = document.getElementById("input");
+      myForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        console.dir(myForm.City.value);
+        getData(myForm.City.value)
+      });
+
+      //     let form = document.querySelector('#input')
+      // form.onsubmit = (e)=>{
+      //     e.preventDefault()
+
+      //     let city = form.city.value
+      //     getData(city)
+    </script>
+    <div>
+      <img
+        src="https://img.icons8.com/emoji/48/000000/sun-behind-small-cloud.png"
+      />
+    </div>
+  </body>
+</html>
